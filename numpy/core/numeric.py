@@ -2421,8 +2421,13 @@ def array_equal(a1, a2):
         return False
     if a1.shape != a2.shape:
         return False
-    return bool(asarray(a1 == a2).all())
 
+    a1iter = a1.flat
+    a2iter = a2.flat
+    for v1, v2 in zip(a1iter, a2iter):
+        if v1 != v2:
+            return False
+    return True
 
 def array_equiv(a1, a2):
     """
