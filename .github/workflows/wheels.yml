@@ -107,6 +107,13 @@ jobs:
         with:
           platforms: all
 
+      - name: Overrides for ppc64le
+        if: ${{ matrix.buildplat[1] == 'manylinux_ppc64le' }}
+        run: |
+          echo "NPY_USE_BLAS_ILP64=0" >> $env:GITHUB_ENV
+          echo "CIBW_ARCHS_LINUX=ppc64le" >> $env:GITHUB_ENV
+          echo "CIBW_ENVIRONMENT_PASS_LINUX="NPY_USE_BLAS_ILP64 CIBW_ARCHS_LINUX"
+
       # Used to push the built wheels
       - uses: actions/setup-python@v4
         with:
