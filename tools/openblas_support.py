@@ -46,6 +46,7 @@ def get_plat():
 
 
 def get_ilp64():
+    print(os.environ)
     if os.environ.get("NPY_USE_BLAS_ILP64", "0") == "0":
         return None
     if IS_32BIT:
@@ -63,6 +64,8 @@ def get_manylinux(arch):
 
 def download_openblas(target, plat, ilp64):
     osname, arch = plat.split("-")
+    print(f"ILP64 is: {ilp64}")
+
     fnsuffix = {None: "", "64_": "64_"}[ilp64]
     filename = ''
     headers = {'User-Agent':
