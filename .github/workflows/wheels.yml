@@ -130,6 +130,7 @@ jobs:
         env:
           CIBW_BUILD: ${{ matrix.python }}-${{ matrix.buildplat[1] }}
           CIBW_ARCHS_LINUX: auto ppc64le
+          CIBW_BEFORE_ALL_LINUX: unset NPY_USE_BLAS_ILP64
           CIBW_ENVIRONMENT_PASS_LINUX: CIBW_BEFORE_ALL_LINUX
 
       - uses: actions/upload-artifact@v3
