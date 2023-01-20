@@ -112,7 +112,7 @@ jobs:
         run: |
           echo "NPY_USE_BLAS_ILP64=0" >> $env:GITHUB_ENV
           echo "CIBW_ARCHS_LINUX=ppc64le" >> $env:GITHUB_ENV
-          echo "CIBW_ENVIRONMENT_PASS_LINUX="NPY_USE_BLAS_ILP64 CIBW_ARCHS_LINUX"
+          echo "CIBW_ENVIRONMENT_PASS_LINUX='NPY_USE_BLAS_ILP64 CIBW_ARCHS_LINUX'" >> $env:GITHUB_ENV
 
       # Used to push the built wheels
       - uses: actions/setup-python@v4
