@@ -110,9 +110,10 @@ jobs:
       - name: Overrides for ppc64le
         if: ${{ matrix.buildplat[1] == 'manylinux_ppc64le' }}
         run: |
-          echo "NPY_USE_BLAS_ILP64=0" >> $env:GITHUB_ENV
           echo "CIBW_ARCHS_LINUX=ppc64le" >> $env:GITHUB_ENV
-          echo "CIBW_ENVIRONMENT_PASS_LINUX='NPY_USE_BLAS_ILP64 CIBW_ARCHS_LINUX'" >> $env:GITHUB_ENV
+          echo CIBW_BEFORE_ALL_LINUX="unset NPY_USE_BLAS_ILP64" >> $env:GITHUB_ENV
+          echo "CIBW_ENVIRONMENT_PASS_LINUX='CIBW_BEFORE_ALL_LINUX CIBW_ARCHS_LINUX'" >> $env:GITHUB_ENV
+
 
       # Used to push the built wheels
       - uses: actions/setup-python@v4
@@ -130,7 +131,6 @@ jobs:
         uses: pypa/cibuildwheel@v2.12.0
         env:
           CIBW_BUILD: ${{ matrix.python }}-${{ matrix.buildplat[1] }}
-          CIBW_ARCHS_LINUX: auto ppc64le
 
       - uses: actions/upload-artifact@v3
         with:
