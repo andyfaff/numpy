@@ -112,8 +112,6 @@ jobs:
         run: |
           echo "CIBW_ARCHS_LINUX=ppc64le" >> $env:GITHUB_ENV
           echo CIBW_BEFORE_ALL_LINUX="unset NPY_USE_BLAS_ILP64" >> $env:GITHUB_ENV
-          echo "CIBW_ENVIRONMENT_PASS_LINUX='CIBW_BEFORE_ALL_LINUX CIBW_ARCHS_LINUX'" >> $env:GITHUB_ENV
-
 
       # Used to push the built wheels
       - uses: actions/setup-python@v4
@@ -132,7 +130,8 @@ jobs:
         env:
           CIBW_BUILD: ${{ matrix.python }}-${{ matrix.buildplat[1] }}
           CIBW_ARCHS_LINUX: auto ppc64le
-  
+          CIBW_ENVIRONMENT_PASS_LINUX: CIBW_BEFORE_ALL_LINUX
+
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.python }}-${{ startsWith(matrix.buildplat[1], 'macosx') && 'macosx' || matrix.buildplat[1] }}
