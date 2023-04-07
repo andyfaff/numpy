@@ -47,8 +47,8 @@ macos_arm64_test_task:
     source numpy-dev/bin/activate
     popd
 
-    python -m pip install -r build_requirements.txt
-    python runtests.py build
+    pip install -r build_requirements.txt
+    pip install pytest hypothesis typing_extensions
     
-    python -m pip install -r test_requirements.txt
-    python runtests.py test
+    spin build
+    spin test
