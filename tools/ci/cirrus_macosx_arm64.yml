@@ -27,10 +27,6 @@ macos_arm64_test_task:
 
   <<: *MODIFIED_CLONE
 
-  matrix:
-    - env:
-        CIBW_BUILD: cp39-*
-
   pip_cache:
     folder: ~/.cache/pip
 
@@ -54,7 +50,5 @@ macos_arm64_test_task:
     python -m pip install -r build_requirements.txt
     python runtests.py build
     
-    python -m pip install click rich_click doit pydevtool
-    python -m pip install pytest pooch
-    export DYLD_LIBRARY_PATH=/usr/local/gfortran/lib:/opt/arm64-builds/lib
-    python dev.py test
+    python -m pip install -r test_requirements.txt
+    python runtests.py test

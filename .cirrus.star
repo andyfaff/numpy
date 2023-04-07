@@ -31,8 +31,8 @@ def main(ctx):
     if "[skip cirrus]" in dct["message"] or "[skip ci]" in dct["message"]:
         return []
 
-    config =  fs.read("tools/ci/cirrus_linux_aarch64_wheels.yml")
-    config +=  fs.read("tools/ci/cirrus_macosx_arm64.yml")
+    config = fs.read("tools/ci/cirrus_linux_aarch64_wheels.yml")
+    config += fs.read("tools/ci/cirrus_macosx_arm64.yml")
 
     # add extra jobs to the cirrus run by += adding to config
 
