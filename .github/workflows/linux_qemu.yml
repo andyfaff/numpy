@@ -49,6 +49,7 @@ jobs:
         CIBW_BUILD: cp311-*
         CIBW_CONFIG_SETTINGS: "setup-args=-Dallow-noblas=true"
         CIBW_ENVIRONMENT_LINUX: EXPECT_CPU_FEATURES="${{ matrix.platform[1] }}"
+        CIBW_ENVIRONMENT_PASS_LINUX: EXPECT_CPU_FEATURES
 
     - uses: actions/upload-artifact@v3
       with:
