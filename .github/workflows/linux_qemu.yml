@@ -1,4 +1,4 @@
-name: Test Meson build (Linux)
+name: QEMU
 
 on:
   pull_request:
