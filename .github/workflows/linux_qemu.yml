@@ -28,7 +28,7 @@ jobs:
         matrix:
           platform:
             - [s390x, "VX VXE VXE2"]
-            - [ppc64le, "VSX VSX2 VSX3"]
+            # - [ppc64le, "--cpu-dispatch="maxVSX VSX2 VSX3"]
     steps:
     - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
       with:
