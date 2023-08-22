@@ -151,7 +151,7 @@ tracker = "https://github.com/numpy/numpy/issues"
 # `tools/ci/cirrus_wheels.yml`.
 skip = "cp36-* cp37-* cp-38* pp37-* *-manylinux_i686 *-musllinux_aarch64 *-win32"
 build-verbosity = "3"
-before-build = "bash {project}/tools/wheels/cibw_before_build.sh {project}"
+# before-build = "bash {project}/tools/wheels/cibw_before_build.sh {project}"
 # meson has a hard dependency on ninja, and we need meson to build
 # c-extensions in tests. There is a ninja PyPI package used in
 # build_requirements.txt for macOS, windows, linux but it cannot be in
