@@ -43,7 +43,7 @@ jobs:
         # emulated ones
         CIBW_ARCHS_LINUX: ppc64le s390x
         CIBW_BUILD: cp311-*
-        CIBW_CONFIG_SETTINGS: "--build-option=--Dallow-noblas"
+        CIBW_CONFIG_SETTINGS: "--config-settings=setup-args=allow-noblas"
 
     - uses: actions/upload-artifact@v3
       with:
