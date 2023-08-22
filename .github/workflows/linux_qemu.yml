@@ -38,4 +38,15 @@ jobs:
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
       with:
-        platforms: "linux/ppc64le"
+        platforms: all
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.15.0
+        env:
+          # configure cibuildwheel to build native archs ('auto'), and some
+          # emulated ones
+          CIBW_ARCHS_LINUX: ppc64le s390x
+
+      - uses: actions/upload-artifact@v3
+        with:
+          path: ./wheelhouse/*.whl
