@@ -24,7 +24,6 @@ jobs:
   multi_platform:
     if: "github.repository == 'andyfaff/numpy'"
     runs-on: ubuntu-latest
-    name: "Test Linux (${{ matrix.USE_NIGHTLY_OPENBLAS && 'nightly' || 'stable' }} OpenBLAS)"
 
     steps:
     - uses: actions/checkout@c85c95e3d7251135ab7dc9ce3241c5835cc595a9 # v3.5.3
