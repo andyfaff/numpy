@@ -37,13 +37,14 @@ jobs:
       with:
         platforms: all
 
-      - name: Build wheels
-        uses: pypa/cibuildwheel@v2.15.0
-        env:
-          # configure cibuildwheel to build native archs ('auto'), and some
-          # emulated ones
-          CIBW_ARCHS_LINUX: ppc64le s390x
+    - name: Build wheels
+      uses: pypa/cibuildwheel@v2.15.0
+      env:
+        # configure cibuildwheel to build native archs ('auto'), and some
+        # emulated ones
+        CIBW_ARCHS_LINUX: ppc64le s390x
+        CIBW_BUILD: cp311-*
 
-      - uses: actions/upload-artifact@v3
-        with:
-          path: ./wheelhouse/*.whl
+    - uses: actions/upload-artifact@v3
+      with:
+        path: ./wheelhouse/*.whl
