@@ -1960,6 +1960,10 @@ array_assign_subscript(PyArrayObject *self, PyObject *ind, PyObject *op)
         tmp_arr = (PyArrayObject *)op;
     }
 
+    if (tmp_arr && solve_may_share_memory(self, tmp_arr, 1) != 0) {
+        Py_SETREF(tmp_arr, (PyArrayObject *)PyArray_NewCopy(tmp_arr, NPY_ANYORDER));
+    }
+
     /*
      * Special case for very simple 1-d fancy indexing, which however
      * is quite common. This saves not only a lot of setup time in the
@@ -1992,9 +1996,9 @@ array_assign_subscript(PyArrayObject *self, PyObject *ind, PyObject *op)
             npy_intp itemsize = PyArray_ITEMSIZE(self);
             int is_aligned = IsUintAligned(self) && IsUintAligned(tmp_arr);
 
-            if (PyArray_GetDTypeTransferFunction(is_aligned,
-                    itemsize, itemsize,
-                    PyArray_DESCR(self), PyArray_DESCR(self),
+            if (PyArray_GetDTypeTransferFunction(
+                        is_aligned, itemsize, itemsize,
+                        PyArray_DESCR(tmp_arr), PyArray_DESCR(self),
                     0, &cast_info, &transfer_flags) != NPY_SUCCEED) {
                 goto fail;
             }

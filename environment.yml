@@ -29,14 +29,16 @@ dependencies:
   - mypy=1.10.0
   # For building docs
   - sphinx>=4.5.0
+  - sphinx-copybutton
   - sphinx-design
   - numpydoc=1.4.0
   - ipython
   - scipy
   - pandas
   - matplotlib
-  - pydata-sphinx-theme=0.15.2
+  - pydata-sphinx-theme>=0.15.2
   - doxygen
+  - towncrier
   # NOTE: breathe 4.33.0 collides with sphinx.ext.graphviz
   - breathe>4.33.0
   # For linting

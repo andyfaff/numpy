@@ -632,6 +632,7 @@ def histogram_bin_edges(a, bins=10, range=None, weights=None):
 
     Examples
     --------
+    >>> import numpy as np
     >>> arr = np.array([0, 0, 0, 1, 2, 3, 3, 4, 5])
     >>> np.histogram_bin_edges(arr, bins='auto', range=(0, 1))
     array([0.  , 0.25, 0.5 , 0.75, 1.  ])
@@ -755,6 +756,7 @@ def histogram(a, bins=10, range=None, density=None, weights=None):
 
     Examples
     --------
+    >>> import numpy as np
     >>> np.histogram([1, 2, 1], bins=[0, 1, 2, 3])
     (array([0, 2, 1]), array([0, 1, 2, 3]))
     >>> np.histogram(np.arange(4), bins=np.arange(5), density=True)
@@ -972,7 +974,9 @@ def histogramdd(sample, bins=10, range=None, density=None, weights=None):
 
     Examples
     --------
-    >>> r = np.random.randn(100,3)
+    >>> import numpy as np
+    >>> rng = np.random.default_rng()
+    >>> r = rng.normal(size=(100,3))
     >>> H, edges = np.histogramdd(r, bins = (5, 8, 4))
     >>> H.shape, edges[0].size, edges[1].size, edges[2].size
     ((5, 8, 4), 6, 9, 5)

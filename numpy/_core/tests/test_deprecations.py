@@ -217,6 +217,11 @@ class TestBincount(_DeprecationTestCase):
     def test_bincount_minlength(self):
         self.assert_deprecated(lambda: np.bincount([1, 2, 3], minlength=None))
 
+    # 2024-07-29, 2.1.0
+    @pytest.mark.parametrize('badlist', [[0.5, 1.2, 1.5],
+                                         ['0', '1', '1']])
+    def test_bincount_bad_list(self, badlist):
+        self.assert_deprecated(lambda: np.bincount(badlist))
 
 
 class TestGeneratorSum(_DeprecationTestCase):
@@ -670,18 +675,22 @@ class TestLibImports(_DeprecationTestCase):
 
 class TestDeprecatedDTypeAliases(_DeprecationTestCase):
 
-    @staticmethod
-    def _check_for_warning(func):
+    def _check_for_warning(self, func):
         with warnings.catch_warnings(record=True) as caught_warnings:
             func()
         assert len(caught_warnings) == 1
         w = caught_warnings[0]
         assert w.category is DeprecationWarning
-        assert "alias `a` was removed in NumPy 2.0" in str(w.message)
+        assert "alias 'a' was deprecated in NumPy 2.0" in str(w.message)
 
     def test_a_dtype_alias(self):
-        self._check_for_warning(lambda: np.dtype("a"))
-        self._check_for_warning(lambda: np.dtype("a10"))
+        for dtype in ["a", "a10"]:
+            f = lambda: np.dtype(dtype)
+            self._check_for_warning(f)
+            self.assert_deprecated(f)
+            f = lambda: np.array(["hello", "world"]).astype("a10")
+            self._check_for_warning(f)
+            self.assert_deprecated(f)
 
 
 class TestDeprecatedArrayWrap(_DeprecationTestCase):
