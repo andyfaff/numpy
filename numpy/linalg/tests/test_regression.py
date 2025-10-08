@@ -179,3 +179,15 @@ class TestRegression:
             if mismatches != 0:
                 assert False, ("unexpected result from matmul, "
                     "probably due to OpenBLAS threading issues")
+
+def test_macos15_intel_repeatability():
+    """Try to replicate problem of scipy issue #23710"""
+    qd1 = np.array([
+        0.0, 0.041067318521830716, 0.19526214587563503, 0.5384608080042774, 1.0,
+        1.2060600302011566, 1.1380711874576983, 1.0379412550374412, 1.0,
+        1.0379412550374412, 1.1380711874576983, 1.2060600302011564, 1.0,
+        0.5384608080042773, 0.19526214587563503, 0.04106731852183083])
+    qd2 = qd1.copy()
+    denominator1 = qd1.T.real @ qd1.real + qd1.T.imag @ qd1.imag
+    denominator2 = qd2.T.real @ qd2.real + qd2.T.imag @ qd2.imag
+    np.testing.assert_equal(denominator2, denominator1)  # fails on macos15-intel
